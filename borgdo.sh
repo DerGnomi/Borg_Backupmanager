@@ -420,9 +420,9 @@ function CREATE_ARCHIVE() {
           esac
         done
         printf "\n"
-        printf "\nName the Backup"
-        read -p "Default Backupname would be [manuall-{Date}]. Typ in a name or press [ENTER] for default> " name
-        printf "\nStarting Backup now"
+        printf "\nName the backup"
+        read -p "Default backupname would be [manuall-{Date}]. Typ in a name or press [ENTER] for default> " name
+        printf "\nStarting backup now"
         if [[ $currentuser != "root" ]]; then
           if [[ $name == "" ]]; then
             su -c "cd ~ ; source borgrc/$currentsource ; borg create $backup ::manuall-{now:%d.%m.%Y} $BORG_BACKUP_DIR" $currentuser
@@ -461,8 +461,8 @@ function CREATE_AUTOMAGIE() {
           printf "\nOK, going back into the menu"
           break;;
         [Yy]* )
-          read -p "Which user should make the automatic Backups? [username]> " backupuser
-          printf "\n\nPlease Select a Setting you want to use!\nThe follwing settings are stored at the moment:"
+          read -p "Which user should make the automatic backups? [username]> " backupuser
+          printf "\n\nPlease select a setting you want to use!\nThe follwing settings are stored at the moment:"
           ls -l /etc/borgrc/config | awk -F' ' '{ print $9 }'
           printf "\n"
           read -p "Which of this settings you want to use?> " sourcerc
@@ -479,7 +479,7 @@ function CREATE_AUTOMAGIE() {
             printf "\n\033[1;33mNow you can create new ones - the old settings will be deleted\033[0m"
             sed -i /^.*borg.*$/d ~/.crontab.tmp
           fi
-          printf "\nDaily Backups"
+          printf "\nDaily backups"
           printf "\nNow you have to choose the time to create the backups\n"
           read -p "Hour [0-23]> " hour
           read -p "Minute [0-59]> " minute
